@@ -109,10 +109,111 @@ Enter password: ← enter MySQL root account password here
 % chmod go-rwx .my.cnf
 
 #############################################################
+1.5. Executing SQL Statements Interactively
+
+
+mysql> SELECT NOW();
+
+mysql> SELECT
+	-> NOW()\g
+
+#垂直显示
+mysql> SHOW FULL COLUMNS FROM limbs LIKE 'thing'\G
+*************************** 1. row ***************************
+Field: thing
+Type: varchar(20)
+Collation: latin1_swedish_ci
+Null: YES
+Key:
+Default: NULL
+Extra:
+Privileges: select,insert,update,references
+Comment:
+#############################################################
+1.6. Executing SQL Statements Read from a File or Program
+
+
+
+DROP TABLE IF EXISTS limbs;
+CREATE TABLE limbs
+(
+thing VARCHAR(20), # what the thing is
+legs INT, # number of legs it has
+arms INT # number of arms it has
+);
+INSERT INTO limbs (thing,legs,arms) VALUES('human',2,2);
+INSERT INTO limbs (thing,legs,arms) VALUES('insect',6,0);
+INSERT INTO limbs (thing,legs,arms) VALUES('squid',0,10);
+INSERT INTO limbs (thing,legs,arms) VALUES('fish',0,0);
+INSERT INTO limbs (thing,legs,arms) VALUES('centipede',100,0);
+INSERT INTO limbs (thing,legs,arms) VALUES('table',4,0);
+INSERT INTO limbs (thing,legs,arms) VALUES('armchair',4,2);
+INSERT INTO limbs (thing,legs,arms) VALUES('phonograph',0,1);
+INSERT INTO limbs (thing,legs,arms) VALUES('tripod',3,0);
+INSERT INTO limbs (thing,legs,arms) VALUES('Peg Leg Pete',1,2);
+INSERT INTO limbs (thing,legs,arms) VALUES('space alien',NULL,NULL);
+
+# run this command,To execute the statements in this SQL script file
+% mysql cookbook < limbs.sql
+
+
+# use a source filename command (or \. filename, which is synonymous):
+mysql> source limbs.sql;
+mysql> \. limbs.sql;
+
+
+# copy a database over the network to another MySQL server 
+% mysqldump cookbook > dump.sql
+% mysql -h other-host.example.com cookbook < dump.sql
+
+# connect the two programs directly with a pipe
+% mysqldump cookbook | mysql -h other-host.example.com cookbook
+
+
+
+#############################################################
+1.7. Controlling mysql Output Destination and Format（控制mysql数据的目的地和格式）
+
+
+
+
+
 
 
 #############################################################
 
 
+
+
+
+
+
 #############################################################
+
+
+
+
+
+
+
+
+
+
+#############################################################
+
+
+
+
+
+
+
+#############################################################
+
+
+
+
+
+
+
+
 
